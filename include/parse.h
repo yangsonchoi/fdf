@@ -19,9 +19,11 @@ typedef struct s_table
 {
 	int		row_size;
 	int		col_size;
+	int		height;
+	int		color_use;
 	t_point	**points;
 }	t_table;
 
-void	parse_map_to_tab(t_table *tab, int argc, char **argv);
+void	parse_map_to_tab(int argc, char **argv, t_table *tab);
 
 #endif

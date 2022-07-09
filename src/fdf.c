@@ -6,9 +6,17 @@
 /*   By: yachoi <yachoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:47:00 by yachoi            #+#    #+#             */
-/*   Updated: 2022/07/08 12:49:06 by yachoi           ###   ########.fr       */
+/*   Updated: 2022/07/09 14:21:04 by yachoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fdf.h"
+#include "stdlib.h"
+#include "parse.h"
+
+
+#define ESC_KEY 53
+
 
 static int	terminate(int key_input, t_vars *vars);
 
@@ -18,7 +26,7 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 	t_img	img;
 
-	parse_map_to_tab(&tab, argc, argv);
+	parse_map_to_tab(argc, argv, &tab);
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, IMAGE_WIDTH, IMAGE_HEIGHT, "tothemoon");
 	img.img = mlx_new_image(vars.mlx, IMAGE_WIDTH, IMAGE_HEIGHT);
