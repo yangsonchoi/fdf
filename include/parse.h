@@ -19,7 +19,6 @@ typedef struct s_table
 {
 	int		row_size;
 	int		col_size;
-	int		height;
 	int		color_use;
 	t_point	**points;
 }	t_table;

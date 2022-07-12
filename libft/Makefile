@@ -89,7 +89,7 @@ fclean : clean
 
 re : fclean all
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) $(OBJS_BONUS)
 	$(AR) $(ARFLAGS) $@ $^
 
 bonus : $(OBJS) $(OBJS_BONUS)
