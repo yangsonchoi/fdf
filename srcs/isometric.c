@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   isometric.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yachoi <yachoi@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/14 12:36:25 by yachoi            #+#    #+#             */
+/*   Updated: 2022/07/14 12:36:38 by yachoi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "isometric.h"
 #include <math.h>
 #include <draw.h>
 #include <parse.h>
 
 static void	isometric_point(t_point *p, const double angle);
-static void move_to_mid(t_point *p, int	mid_x, int mid_y);
+static void	move_to_mid(t_point *p, int mid_x, int mid_y);
 
 void	isometric_transformation(t_table *tab)
 {
@@ -13,7 +25,7 @@ void	isometric_transformation(t_table *tab)
 	int		mid_y;
 	int		i;
 	int		j;
-	
+
 	rotate_angle = M_PI / 3;
 	i = 0;
 	mid_x = IMAGE_WIDTH / 2;
@@ -35,16 +47,15 @@ void	isometric_transformation(t_table *tab)
 static void	isometric_point(t_point *p, const double angle)
 {
 	int	x_before;
-	int y_before;
+	int	y_before;
 
 	x_before = p->x;
 	y_before = p->y;
 	p->x = (int)round((x_before - y_before) * sin(angle));
 	p->y = ((int)round((x_before + y_before) * cos(angle))) + p->z;
-	
 }
 
-static void move_to_mid(t_point *p, int	mid_x, int mid_y)
+static void	move_to_mid(t_point *p, int mid_x, int mid_y)
 {
 	p->x += mid_x;
 	p->y += mid_y;

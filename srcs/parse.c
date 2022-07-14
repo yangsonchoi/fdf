@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yachoi <yachoi@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/14 12:42:36 by yachoi            #+#    #+#             */
+/*   Updated: 2022/07/14 12:42:49 by yachoi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 #include <fcntl.h>
 #include "utils.h"
@@ -6,10 +18,10 @@
 
 #define CASE_CONSTANT 2000
 
-static void	gnl_map_to_tab(int fd, t_table *tab);
+static void		gnl_map_to_tab(int fd, t_table *tab);
 static t_point	*new_point(char **words, t_table *tab);
-static void list_to_tab(t_table *tab, t_list *head);
-static void	plot_points(t_table *tab, const int case_size, const int z_size);
+static void		list_to_tab(t_table *tab, t_list *head);
+static void		plot_point(t_table *tab, const int case_size, const int z_size);
 
 void	parse_map_to_tab(int argc, char **argv, t_table *tab)
 {
@@ -30,14 +42,13 @@ void	parse_map_to_tab(int argc, char **argv, t_table *tab)
 	else
 		case_size = CASE_CONSTANT / tab->row_size;
 	z_size = case_size;
-	if	(argc == 4)
+	if (argc == 4)
 	{
 		case_size = ft_atoi(argv[2]);
 		z_size = ft_atoi(argv[3]);
 	}
-	plot_points(tab, case_size, z_size);
+	plot_point(tab, case_size, z_size);
 }
-
 
 static void	gnl_map_to_tab(int fd, t_table *tab)
 {
@@ -45,7 +56,7 @@ static void	gnl_map_to_tab(int fd, t_table *tab)
 	char	**words;
 	t_list	*point_list;
 	t_list	*new_list;
-	
+
 	tab->col_size = 0;
 	tab->row_size = 0;
 	tab->color_use = 0;
@@ -59,22 +70,21 @@ static void	gnl_map_to_tab(int fd, t_table *tab)
 			exit_msg("ft_split failed");
 		new_list = ft_lstnew(new_point(words, tab));
 		free(words);
-		if(new_list == NULL)
+		if (new_list == NULL)
 			exit_msg("ft_lstnew falied");
 		ft_lstadd_back(&point_list, new_list);
-	   	line = get_next_line(fd);
+		line = get_next_line(fd);
 	}
 	list_to_tab(tab, point_list);
 }
 
-
 static t_point	*new_point(char **words, t_table *tab)
 {
-	t_point *point; 
+	t_point	*point;
 	int		i;
 
 	i = 0;
-	while(words[i] != NULL)
+	while (words[i] != NULL)
 		++i;
 	if (tab->col_size == 0)
 		tab->col_size = i;
@@ -95,14 +105,14 @@ static t_point	*new_point(char **words, t_table *tab)
 	return (point);
 }
 
-static void list_to_tab(t_table *tab, t_list *head)
+static void	list_to_tab(t_table *tab, t_list *head)
 {
-	t_list *curr;
+	t_list	*curr;
 	int		i;
-	
+
 	tab->points = malloc(sizeof(*tab->points) * tab->row_size);
 	if (tab->points == NULL)
-			exit_msg("list_to_tab malloc failed");
+		exit_msg("list_to_tab malloc failed");
 	curr = head;
 	i = 0;
 	while (curr != NULL)
@@ -115,7 +125,7 @@ static void list_to_tab(t_table *tab, t_list *head)
 	}
 }
 
-static void	plot_points(t_table *tab, const int case_size, const int z_size)
+static void	plot_point(t_table *tab, const int case_size, const int z_size)
 {
 	int	i;
 	int	j;

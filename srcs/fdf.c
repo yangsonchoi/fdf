@@ -32,7 +32,8 @@ int	main(int argc, char **argv)
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, IMAGE_WIDTH, IMAGE_HEIGHT, "tothemoon");
 	img.img = mlx_new_image(vars.mlx, IMAGE_WIDTH, IMAGE_HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.size_len, &img.endian);
+	img.addr = mlx_get_data_addr(img.img, \
+				&img.bits_per_pixel, &img.size_len, &img.endian);
 	isometric_transformation(&tab);
 	draw_image(&img, &tab);
 	free_points(&tab);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yachoi <yachoi@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/14 12:43:20 by yachoi            #+#    #+#             */
+/*   Updated: 2022/07/14 12:43:24 by yachoi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "utils.h"
 #include <stdlib.h>
 #include "parse.h"
@@ -56,7 +68,6 @@ void	color_update(t_point *p, const t_point *p0, const t_point *p1)
 	dr = (int)p1->color.trgb[2] - (int)p0->color.trgb[2];
 	dg = (int)p1->color.trgb[1] - (int)p0->color.trgb[1];
 	db = (int)p1->color.trgb[0] - (int)p0->color.trgb[0];
-
 	if (abs(p1->x - p0->x) < abs(p1->y - p0->y))
 		grad = abs(p->y - p0->y) / abs(p1->y - p0->y);
 	else

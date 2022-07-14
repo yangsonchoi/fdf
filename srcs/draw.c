@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yachoi <yachoi@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/14 12:29:02 by yachoi            #+#    #+#             */
+/*   Updated: 2022/07/14 12:33:49 by yachoi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "draw.h"
 #include "utils.h"
 
@@ -53,13 +65,10 @@ static void	draw_line_low(t_img *img, const t_point *p0, const t_point *p1)
 	t_point	p;
 
 	dx = p1->x - p0->x;
-	dy = p1->y - p0->y;
+	dy = abs(p1->y - p0->y);
 	move = 1;
-	if (dy < 0)
-		{
-			move = -1;
-			dy *= -1;
-		}
+	if (p1->y - p0->y < 0)
+		move = -1;
 	determinant = (dy << 1) - dx;
 	p = *(t_point *)p0;
 	while (p.x < p1->x)
@@ -84,15 +93,12 @@ static void	draw_line_high(t_img *img, const t_point *p0, const t_point *p1)
 	int		move;
 	t_point	p;
 
-	dx = p1->x - p0->x;
+	dx = abs(p1->x - p0->x);
 	dy = p1->y - p0->y;
 	determinant = (dx << 1) - dy;
 	move = 1;
-	if (dx < 0)
-		{
-			move = -1;
-			dx *= -1;
-		}
+	if (p1->x - p0->x < 0)
+		move = -1;
 	p = *(t_point *)p0;
 	while (p.y < p1->y)
 	{
