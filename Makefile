@@ -1,8 +1,9 @@
 NAME		= fdf
 
-CC			= gcc
+CC			= gcc -g
 CFLAGS		= -Wall -Werror -Wextra
 LDFLAGS		= -lmlx -lft -lm -L$(MLX_DIR) -L$(LIBFT_DIR)
+INCLUDES	= -I$(HDRS_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
 
 RM 			= rm
 RMFLAGS		= -rf
@@ -10,43 +11,49 @@ RMFLAGS		= -rf
 LIBFT		= $(LIBFT_DIR)libft.a
 LIBFT_DIR	= ./libft/
 
-MLX		= $(MLX_DIR)libmlx.dylib
-MLX_DIR = ./minilibx/
+MLX			= $(MLX_DIR)libmlx.dylib
+MLX_DIR 	= ./minilibx/
 
-SRCS_DIR 	= ./srcs/
-INCLUDE_DIR = ./include/
+HDRS_LIST	= $(patsubst %.c, %.h, $(SRCS_LIST))
+HDRS_DIR	= ./include/
+HDRS		= $(addprefix $(HDRS_DIR), $(HDRS_LIST))
 
-SRCS 		=	fdf.c			\
+SRCS_DIR	= ./srcs/
+SRCS_LIST	=	fdf.c			\
 				utils.c			\
 				parse.c			\
 				get_next_line.c	\
 				isometric.c		\
-				draw.c			\
+				draw.c
+SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
 OBJS_DIR	= objects/
-OBJS 		= $(SRCS:.c=.o)
+OBJS_LIST	= $(patsubst %.c, %.o, $(SRCS_LIST))
+OBJS	= $(addprefix $(OBJS_DIR), $(OBJS_LIST))
 
 all : $(NAME)
 
 $(NAME) : $(LIBFT) $(MLX) $(OBJS_DIR) $(OBJS)
-	@$(CC) $(CFLAGS) $(LDFLAGS) -I$(INCLUDE_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
 
 $(OBJS_DIR) :
-	@mkdir -p $(OBJS_DIR)
+	mkdir -p $(OBJS_DIR)
 
-%.o : $(SRCS_DIR)%.c $(INCLUDE_DIR)%.h
-	@$(CC) $(CFLAGS) -c -I$(INCLUDE_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR) $< -o $@
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS)
+	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
 
 $(LIBFT) :
-	@$(MAKE) bonus -C $(LIBFT_DIR)
+	$(MAKE) bonus -C $(LIBFT_DIR)
 
 $(MLX) :
-	@$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR)
+	cp $(MLX) .
 
 clean :
-	@$(RM) $(RMFLAGS) $(OBJS_DIR) $(OBJS)
-	@$(MAKE) -C $(LIBFT_DIR) clean
-	@$(MAKE) -C $(MLX_DIR) clean
+	$(RM) $(RMFLAGS) $(OBJS_DIR) $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
+	$(RM) $(RMFLAGS) libmlx.dylib
 
 
 fclean : clean

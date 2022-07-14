@@ -118,7 +118,7 @@ static void	list_to_tab(t_table *tab, t_list *head)
 	while (curr != NULL)
 	{
 		tab->points[i] = curr->content;
-		i--;
+		i++;
 		head = curr->next;
 		free(curr);
 		curr = head;

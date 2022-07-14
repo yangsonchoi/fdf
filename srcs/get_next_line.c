@@ -42,6 +42,13 @@ static char	*ft_read_line(int fd, char *stt_str)
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (buf == NULL)
 		return (NULL);
+	if (stt_str == NULL)
+	{
+		stt_str = (char *)malloc(1 * sizeof(char));
+		if (stt_str == NULL)
+			return (NULL);
+		stt_str[0] = '\0';
+	}
 	while (ft_strchr(stt_str, '\n') == 0)
 	{
 		read_len = read(fd, buf, BUFFER_SIZE);
