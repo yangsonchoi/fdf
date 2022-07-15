@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include "utils.h"
 #include "get_next_line.h"
+#include "color_utils.h"
 #include "../libft/libft.h"
 
 #define CASE_CONSTANT 1000
@@ -145,5 +146,3 @@ static void	plot_point(t_table *tab, const int case_size, const int z_size)
 		i++;
 	}
 }
-
-

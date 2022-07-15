@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "draw.h"
-#include "utils.h"
+#include "color_utils.h"
 
 static void	draw_line(t_img *img, const t_point *p0, const t_point *p1);
 static void	draw_line_low(t_img *img, const t_point *p0, const t_point *p1);
@@ -23,24 +23,24 @@ void	draw_image(t_img *img, const t_table *tab)
 	int	i;
 	int	j;
 
-	i = tab->col_size - 1;
-	while (i > 0)
+	i = 0;
+	while (i < tab->col_size - 1)
 	{
-		j = tab->row_size - 1;
-		while (j > 0)
+		j = 0;
+		while (j < tab->row_size - 1)
 		{
-			draw_line(img, &tab->points[i][j], &tab->points[i][j - 1]);
-			draw_line(img, &tab->points[i][j], &tab->points[i - 1][j]);
-			--j;
+			draw_line(img, &tab->points[i][j], &tab->points[i][j + 1]);
+			draw_line(img, &tab->points[i][j], &tab->points[i + 1][j]);
+			++j;
 		}
-		draw_line(img, &tab->points[i][j], &tab->points[i - 1][j]);
-		--i;
+		draw_line(img, &tab->points[i][j], &tab->points[i + 1][j]);
+		++i;
 	}
-	j = tab->row_size -1;
-	while (j > 0)
+	j = 0;
+	while (j < tab->row_size - 1)
 	{
-		draw_line(img, &tab->points[i][j], &tab->points[i][j - 1]);
-		j--;
+		draw_line(img, &tab->points[i][j], &tab->points[i][j + 1]);
+		j++;
 	}
 }
 

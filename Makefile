@@ -24,7 +24,8 @@ SRCS_LIST	=	fdf.c			\
 				parse.c			\
 				get_next_line.c	\
 				isometric.c		\
-				draw.c
+				draw.c			\
+				color_utils.c
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
 OBJS_DIR	= objects/
