@@ -3,6 +3,6 @@
 
 # include "parse.h"
 
-void	isometric_transformation(t_table *tab);
+void	isometric_transformation(t_table *tab, int case_size);
 
 #endif

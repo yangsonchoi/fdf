@@ -23,6 +23,6 @@ typedef struct s_table
 	t_point	**points;
 }	t_table;
 
-void	parse_map_to_tab(int argc, char **argv, t_table *tab);
+int	parse_map_to_tab(int argc, char **argv, t_table *tab);
 
 #endif

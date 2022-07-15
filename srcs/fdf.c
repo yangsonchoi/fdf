@@ -27,14 +27,15 @@ int	main(int argc, char **argv)
 	t_table	tab;
 	t_vars	vars;
 	t_img	img;
+	int		case_size;
 
-	parse_map_to_tab(argc, argv, &tab);
+	case_size = parse_map_to_tab(argc, argv, &tab);
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, IMAGE_WIDTH, IMAGE_HEIGHT, "tothemoon");
 	img.img = mlx_new_image(vars.mlx, IMAGE_WIDTH, IMAGE_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, \
 				&img.bits_per_pixel, &img.size_len, &img.endian);
-	isometric_transformation(&tab);
+	isometric_transformation(&tab, case_size);
 	draw_image(&img, &tab);
 	free_points(&tab);
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);

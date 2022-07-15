@@ -16,14 +16,14 @@
 #include "get_next_line.h"
 #include "../libft/libft.h"
 
-#define CASE_CONSTANT 2000
+#define CASE_CONSTANT 1000
 
 static void		gnl_map_to_tab(int fd, t_table *tab);
 static t_point	*new_point(char **words, t_table *tab);
 static void		list_to_tab(t_table *tab, t_list *head);
 static void		plot_point(t_table *tab, const int case_size, const int z_size);
 
-void	parse_map_to_tab(int argc, char **argv, t_table *tab)
+int	parse_map_to_tab(int argc, char **argv, t_table *tab)
 {
 	int	fd;
 	int	case_size;
@@ -48,6 +48,7 @@ void	parse_map_to_tab(int argc, char **argv, t_table *tab)
 		z_size = ft_atoi(argv[3]);
 	}
 	plot_point(tab, case_size, z_size);
+	return (case_size);
 }
 
 static void	gnl_map_to_tab(int fd, t_table *tab)
@@ -84,24 +85,24 @@ static t_point	*new_point(char **words, t_table *tab)
 	int		i;
 
 	i = 0;
-	while (words[i] != NULL)
+	while (words[i] != NULL && ft_isdigit(*words[i]))
 		++i;
-	if (tab->col_size == 0)
-		tab->col_size = i;
-	else if (i != tab->col_size)
+	if (tab->row_size == 0)
+		tab->row_size = i;
+	else if (i != tab->row_size)
 		exit_msg("Found worng line length. Exiting.");
 	point = malloc(sizeof(*point) * i);
 	if (point == NULL)
 		exit_msg("new_point malloc failed");
 	i = 0;
-	while (words[i] != NULL)
+	while (words[i] != NULL && ft_isdigit(*words[i]))
 	{
 		point[i].z = ft_atoi(words[i]);
 		point[i].color.color = parse_color(words[i], tab);
 		free(words[i]);
 		i++;
 	}
-	tab->row_size += 1;
+	tab->col_size += 1;
 	return (point);
 }
 
@@ -110,7 +111,7 @@ static void	list_to_tab(t_table *tab, t_list *head)
 	t_list	*curr;
 	int		i;
 
-	tab->points = malloc(sizeof(*tab->points) * tab->row_size);
+	tab->points = malloc(sizeof(*tab->points) * tab->col_size);
 	if (tab->points == NULL)
 		exit_msg("list_to_tab malloc failed");
 	curr = head;
@@ -131,16 +132,18 @@ static void	plot_point(t_table *tab, const int case_size, const int z_size)
 	int	j;
 
 	i = 0;
-	while (i < tab->row_size)
+	while (i < tab->col_size)
 	{
 		j = 0;
-		while (j < tab->col_size)
+		while (j < tab->row_size)
 		{
-			tab->points[i][j].x = i * case_size;
-			tab->points[i][j].y = j * case_size;
-			tab->points[i][j].z *= z_size;
+			tab->points[i][j].x = j * case_size;
+			tab->points[i][j].y = i * case_size;
+			tab->points[i][j].z *= z_size * -1;
 			j++;
 		}
 		i++;
 	}
 }
+
+

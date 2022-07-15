@@ -18,7 +18,7 @@
 static void	isometric_point(t_point *p, const double angle);
 static void	move_to_mid(t_point *p, int mid_x, int mid_y);
 
-void	isometric_transformation(t_table *tab)
+void	isometric_transformation(t_table *tab, int case_size)
 {
 	double	rotate_angle;
 	int		mid_x;
@@ -26,15 +26,16 @@ void	isometric_transformation(t_table *tab)
 	int		i;
 	int		j;
 
-	rotate_angle = M_PI / 3;
+	rotate_angle = M_PI / 6;
 	i = 0;
-	mid_x = IMAGE_WIDTH / 2;
-	mid_y = (IMAGE_HEIGHT / 2) - \
-			(int)round((tab->col_size + tab->row_size) / 2 * cos(rotate_angle));
-	while (i < tab->row_size)
+	mid_x = IMAGE_WIDTH / 2 + (int)round((tab->col_size - tab->row_size) \
+			* sin(rotate_angle)) / 2 * case_size;
+	mid_y = (IMAGE_HEIGHT / 2) - (int)round((tab->col_size + tab->row_size) \
+			* sin(rotate_angle)) / 2 * case_size;
+	while (i < tab->col_size)
 	{
 		j = 0;
-		while (j < tab->col_size)
+		while (j < tab->row_size)
 		{
 			isometric_point(&tab->points[i][j], rotate_angle);
 			move_to_mid(&tab->points[i][j], mid_x, mid_y);
@@ -51,8 +52,8 @@ static void	isometric_point(t_point *p, const double angle)
 
 	x_before = p->x;
 	y_before = p->y;
-	p->x = (int)round((x_before - y_before) * sin(angle));
-	p->y = ((int)round((x_before + y_before) * cos(angle))) + p->z;
+	p->x = (int)round((x_before - y_before) * cos(angle));
+	p->y = ((int)round((x_before + y_before) * sin(angle))) + p->z;
 }
 
 static void	move_to_mid(t_point *p, int mid_x, int mid_y)

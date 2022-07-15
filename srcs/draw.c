@@ -23,10 +23,10 @@ void	draw_image(t_img *img, const t_table *tab)
 	int	i;
 	int	j;
 
-	i = tab->row_size - 1;
+	i = tab->col_size - 1;
 	while (i > 0)
 	{
-		j = tab->col_size - 1;
+		j = tab->row_size - 1;
 		while (j > 0)
 		{
 			draw_line(img, &tab->points[i][j], &tab->points[i][j - 1]);
@@ -36,7 +36,7 @@ void	draw_image(t_img *img, const t_table *tab)
 		draw_line(img, &tab->points[i][j], &tab->points[i - 1][j]);
 		--i;
 	}
-	j = tab->col_size -1;
+	j = tab->row_size -1;
 	while (j > 0)
 	{
 		draw_line(img, &tab->points[i][j], &tab->points[i][j - 1]);

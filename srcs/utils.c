@@ -38,7 +38,7 @@ unsigned int	parse_color(const char *str, t_table *tab)
 		return (0x00FFFFFF);
 	if (tab->color_use == 0)
 		tab->color_use = 1;
-	ptr += 1;
+	ptr += 3;
 	color = 0;
 	while (*ptr != '\0')
 	{
@@ -83,7 +83,7 @@ void	free_points(t_table *tab)
 	int	i;
 
 	i = 0;
-	while (i < tab->row_size)
+	while (i < tab->col_size)
 	{
 		free(tab->points[i]);
 		++i;
