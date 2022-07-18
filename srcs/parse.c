@@ -6,12 +6,13 @@
 /*   By: yachoi <yachoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 12:42:36 by yachoi            #+#    #+#             */
-/*   Updated: 2022/07/14 12:42:49 by yachoi           ###   ########.fr       */
+/*   Updated: 2022/07/18 12:58:09 by yachoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include <fcntl.h>
+#include <stdlib.h>
 #include "utils.h"
 #include "get_next_line.h"
 #include "color_utils.h"
@@ -86,7 +87,7 @@ static t_point	*new_point(char **words, t_table *tab)
 	int		i;
 
 	i = 0;
-	while (words[i] != NULL && ft_isdigit(*words[i]))
+	while (words[i] != NULL && (ft_isdigit(*words[i]) || *words[i] == '-'))
 		++i;
 	if (tab->row_size == 0)
 		tab->row_size = i;
@@ -96,13 +97,15 @@ static t_point	*new_point(char **words, t_table *tab)
 	if (point == NULL)
 		exit_msg("new_point malloc failed");
 	i = 0;
-	while (words[i] != NULL && ft_isdigit(*words[i]))
+	while (words[i] != NULL && (ft_isdigit(*words[i]) || *words[i] == '-'))
 	{
 		point[i].z = ft_atoi(words[i]);
 		point[i].color.color = parse_color(words[i], tab);
 		free(words[i]);
 		i++;
 	}
+	if (words != NULL)
+		free(words[i]);
 	tab->col_size += 1;
 	return (point);
 }

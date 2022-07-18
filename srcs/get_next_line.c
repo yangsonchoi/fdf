@@ -6,7 +6,7 @@
 /*   By: yachoi <yachoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 19:53:02 by yachoi            #+#    #+#             */
-/*   Updated: 2022/04/12 17:10:38 by yachoi           ###   ########.fr       */
+/*   Updated: 2022/07/18 13:44:28 by yachoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ static char	*ft_read_line(int fd, char *stt_str)
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (buf == NULL)
 		return (NULL);
-	if (stt_str == NULL)
-	{
-		stt_str = (char *)malloc(1 * sizeof(char));
-		if (stt_str == NULL)
-			return (NULL);
-		stt_str[0] = '\0';
-	}
 	while (ft_strchr(stt_str, '\n') == 0)
 	{
 		read_len = read(fd, buf, BUFFER_SIZE);

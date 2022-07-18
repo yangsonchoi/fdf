@@ -31,6 +31,8 @@ void	draw_image(t_img *img, const t_table *tab)
 		{
 			draw_line(img, &tab->points[i][j], &tab->points[i][j + 1]);
 			draw_line(img, &tab->points[i][j], &tab->points[i + 1][j]);
+			if (tab->color_use == 1)
+				draw_line(img, &tab->points[i][j], &tab->points[i + 1][j + 1]);
 			++j;
 		}
 		draw_line(img, &tab->points[i][j], &tab->points[i + 1][j]);

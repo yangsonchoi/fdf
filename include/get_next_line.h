@@ -6,7 +6,7 @@
 /*   By: yachoi <yachoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 19:45:00 by yachoi            #+#    #+#             */
-/*   Updated: 2022/04/12 16:43:30 by yachoi           ###   ########.fr       */
+/*   Updated: 2022/07/18 16:31:21 by yachoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1000
 
 # endif
 

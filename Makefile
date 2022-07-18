@@ -54,11 +54,10 @@ clean :
 	$(RM) $(RMFLAGS) $(OBJS_DIR) $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(MLX_DIR) clean
-	$(RM) $(RMFLAGS) libmlx.dylib
-
 
 fclean : clean
 	$(RM) $(RMFLAGS) $(MLX)
+	$(RM) $(RMFLAGS) libmlx.dylib
 	$(RM) $(RMFLAGS) $(LIBFT)
 	$(RM) $(RMFLAGS) $(NAME)
 

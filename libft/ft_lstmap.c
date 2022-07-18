@@ -6,7 +6,7 @@
 /*   By: yachoi <yachoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 13:12:03 by yachoi            #+#    #+#             */
-/*   Updated: 2022/06/20 14:41:34 by yachoi           ###   ########.fr       */
+/*   Updated: 2022/07/18 13:16:06 by yachoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*tmp;;
+	t_list	*tmp;
 	t_list	*result;
 
 	if (lst == NULL || f == NULL)
@@ -34,4 +34,3 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	}
 	return (result);
 }
-

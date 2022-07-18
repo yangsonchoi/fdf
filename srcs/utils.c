@@ -12,7 +12,6 @@
 
 #include "utils.h"
 #include <stdlib.h>
-#include <unistd.h>
 #include "parse.h"
 #include "../libft/libft.h"
 
